@@ -76,4 +76,8 @@ class Formatter:
 		return found.lower()
 
 	def clean(self, string):
-		return re.sub(r'\r\n|\r', '\n', string.decode('utf-8'))
+		try:
+			text = re.sub(r'\r\n|\r', '\n', string.decode('utf-8'))
+		except AttributeError as e:
+			text = re.sub(r'\r\n|\r', '\n', string)
+		return text

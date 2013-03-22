@@ -4,10 +4,19 @@
 # @license 		GNU General Public License version 2 or later;
 
 
-from StringIO import StringIO
-from PythonTidy.config import version, summary
-from PythonTidy import PythonTidy
-from PythonTidy import PythonTidyWrapper
+try:
+	# Python 3
+	from io import StringIO
+	#from .AutoPEP8 import autopep8
+	from .sublimeautopep8lib.autopep8 import autopep8
+
+
+except (ValueError):
+	# Python 2
+	from StringIO import StringIO
+	from PythonTidy.config import version, summary
+	from PythonTidy import PythonTidy
+	from PythonTidy import PythonTidyWrapper
 
 
 class Beautifier:
@@ -17,6 +26,15 @@ class Beautifier:
 	def beautify(self, text, options):
 		stderr = ""
 		stdout = ""
+
+
+		stdout = autopep8.fix_string('x=       123\n')
+
+		return stderr, stdout
+
+
+
+
 
 		config = PythonTidyWrapper.Config()
 
